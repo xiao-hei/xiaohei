@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.SpecialDao">
+	
+	<sql id="spe">
+		id,name,author,cover_name,cover_url,type,upload_time,synopsis
+	</sql>
+	<resultMap type="special" id="specialResultMap">
+		<id property="id" column="sid"/>
+		<result property="name" column="sname"/>
+		<result property="author" column="sauthor"/>
+		<result property="cover_url" column="scover_url"/>
+		<result property="cover_name" column="scover_name"/>
+		<result property="type" column="stype"/>
+		<result property="upload_time" column="supload_time"/>
+		<result property="synopsis" column="ssynopsis"/>
+		<collection property="children" javaType="list" ofType="audio">
+			<id property="id" column="aid"/>
+			<result property="name" column="aname"/>
+			<result property="author" column="aauthor"/>
+			<result property="audio_name" column="aaudio_name"/>
+			<result property="audio_url" column="aaudio_url"/>
+			<result property="type" column="atype"/>
+			<result property="special_id" column="aspecial_id"/>
+			<result property="upload_time" column="aupload_time"/>
+			<result property="status" column="astatus"/>
+		</collection>
+	</resultMap>
+	
+	<insert id="insertSpecial">
+		insert into t_special (<include refid="spe"/>) 
+		values (#{id},#{name},#{author},#{cover_name},#{cover_url},#{type},#{upload_time},#{synopsis})
+	</insert>
+	
+	<select id="selectAll" resultMap="specialResultMap">
+		SELECT
+		s.id sid,
+		s. NAME sname,
+		s.author sauthor,
+		s.type stype,
+		s.cover_url scover_url,
+		s.cover_name scover_name,
+		s.upload_time supload_time,
+		s.synopsis ssynopsis,
+		a.id aid,
+		a. NAME aname,
+		a.author aauthor,
+		a.audio_name aaudio_name,
+		a.audio_url aaudio_url,
+		a.type atype,
+		a.upload_time aupload_time,
+		a. STATUS astatus
+		FROM
+		t_special s
+		LEFT JOIN t_audio a ON s.id = a.special_id
+		LIMIT #{curpage},#{rows}
+	</select>
+	
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*)
+		from t_special
+	</select>
+	
+	<delete id="deleteSpecial">
+		delete from t_special 
+		where id=#{id}
+	</delete>
+	
+	<select id="selectById" resultType="special">
+		select <include refid="spe"/> 
+		from t_special
+		where id=#{id}
+	</select>
+	
+	<select id="queryAll" resultType="special">
+		select <include refid="spe"/> 
+		from t_special
+	</select>
+	
+	<update id="updateSpecial">
+		update t_special set
+		author=#{author},type=#{type},synopsis=#{synopsis}
+		where id=#{id}
+	</update>
+</mapper>

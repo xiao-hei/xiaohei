@@ -1,0 +1,5 @@
+[{"iconCls":"icon-ok","id":1,"list":[{"href":"lunbo.jsp","iconCls":"icon-ok","id":11,"name":"萝卜兔"}],"name":"轮播图"},
+{"iconCls":"icon-filter","id":2,"list":[{"href":"zhuanji.jsp","id":21,"name":"专辑管理"}],"name":"吉祥妙音"},
+{"iconCls":"icon-lock","id":3,"list":[{"iconCls":"icon-lock","id":31,"name":"上师展示"}],"name":"甘露秒宝"},
+{"iconCls":"icon-tip","id":4,"list":[{"iconCls":"icon-tip","id":41,"name":"展示功课"}],"name":"功课记录"},
+{"iconCls":"icon-sum","id":5,"list":[{"iconCls":"icon-man","id":51,"name":"计数器"}],"name":"计数器模块"}]

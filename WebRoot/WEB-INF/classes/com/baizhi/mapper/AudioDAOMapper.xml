@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AudioDao">
+	
+	<sql id="aud">
+		id,name,author,audio_name,audio_url,type,special_id,upload_time,status
+	</sql>
+	
+	<insert id="insertAudio">
+		insert into t_audio (<include refid="aud"/>) 
+		values (#{id},#{name},#{author},#{audio_name},#{audio_url},#{type},#{special_id},#{upload_time},#{status})
+	</insert>
+	
+	<select id="selectAll" resultType="audio">
+		select <include refid="aud"/>
+		from t_audio
+		limit #{curpage},#{rows}
+	</select>
+	
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*)
+		from t_audio
+	</select>
+	
+	<delete id="deleteAudio">
+		delete from t_audio
+		where id=#{id}
+	</delete>
+	
+	<delete id="deletBySpecialId">
+		delete from t_audio
+		where special_id=#{special_id}
+	</delete>
+	
+	<select id="selectById" resultType="audio">
+		select <include refid="aud"/> 
+		from t_audio
+		where id=#{id}
+	</select>
+	
+	<update id="updateSpecial">
+		update t_special set
+		name=#{name},author=#{author},type=#{type},synopsis=#{synopsis}
+		where id=#{id}
+	</update>
+</mapper>
